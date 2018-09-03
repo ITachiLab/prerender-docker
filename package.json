@@ -1,0 +1,5 @@
+{
+    "name": "prerenderi-docker",
+    "description": "Prerender Docker image",
+    "version": "0.0.1"
+}
