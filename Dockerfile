@@ -1,4 +1,4 @@
-FROM node:6-onbuild
+FROM node:8-stretch
 
 RUN mkdir /var/prerender
 WORKDIR /var/prerender
@@ -6,9 +6,11 @@ WORKDIR /var/prerender
 RUN apt-get update
 RUN apt-get install -y chromium
 
+ADD lib ./lib
 ADD server.js .
 ADD package.json .
-RUN npm install  prerender
+
+RUN npm install
 
 EXPOSE 3000
 
