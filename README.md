@@ -2,6 +2,8 @@
 
 This repository contains a Docker-ready project with Prerender.io server. It is created on official [Prerender.io server libraries](https://github.com/prerender/prerender) in version 5.4.4. It has been customized to work with Chromium in version 68 and everything runs on NodeJS 8.
 
+![Docker Build Status](https://img.shields.io/docker/build/cykloheksan/prerender-docker.svg)
+
 ## Motive ##
 
 I've created this project, because I couldn't find any working Docker image that will suit my needs. A lot of images still uses PhantomJS as a rendering engine, but as Phantom's author states on his page: "PhantomJS development is suspended until further notice". On the other hand, images with Chromium engine didn't work and were buggy, so I've eventually decided to create my own.
