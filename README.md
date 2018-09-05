@@ -37,6 +37,7 @@ You can customize your Prerender Server either by environment variables during r
 Location of Chromium binary. Generally it should not be redefined, unless you have a special needs.
 
 Default: `/usr/bin/chromium`
+
 Example: `-e CHROME_LOCATION='/usr/local/bin/chromium`'
 
 #### LOG_REQUESTS ####
@@ -44,6 +45,7 @@ Example: `-e CHROME_LOCATION='/usr/local/bin/chromium`'
 When to log requests to stdout.
 
 Default: `false`
+
 Example: `-e LOG_REQUESTS='true'`
 
 #### PAGE_DONE_CHECK_INTERVAL ####
@@ -51,6 +53,7 @@ Example: `-e LOG_REQUESTS='true'`
 Number of milliseconds between the interval of checking whether the page is done loading or not.
 
 Default: `500`
+
 Example: `-e PAGE_DONE_CHECK_INTERVAL='1500'`
 
 #### PAGE_LOAD_TIMEOUT ####
@@ -58,6 +61,7 @@ Example: `-e PAGE_DONE_CHECK_INTERVAL='1500'`
 Maximum number of milliseconds to wait while downloading the page, waiting for all pending requests/ajax calls to complete before timing out and continuing on.
 
 Default: `20000`
+
 Example: `-e PAGE_LOAD_TIMEOUT='10000'`
 
 #### WAIT_AFTER_LAST_REQUEST ####
@@ -65,6 +69,7 @@ Example: `-e PAGE_LOAD_TIMEOUT='10000'`
 Number of milliseconds to wait after the number of requests/ajax calls in flight reaches zero. HTML is pulled off of the page at this point.
 
 Default: `500`
+
 Example: `-e WAIT_AFTER_LAST_REQUEST='3000'`
 
 #### FOLLOW_REDIRECTS ####
@@ -72,6 +77,7 @@ Example: `-e WAIT_AFTER_LAST_REQUEST='3000'`
 Whether Chrome follows a redirect on the first request if a redirect is encountered. Normally, for SEO purposes, you do not want to follow redirects. Instead, you want the Prerender server to return the redirect to the crawlers so they can update their index.
 
 Default: `false`
+
 Example: `-e FOLLOW_REDIRECTS='true'`
 
 #### ENABLE_SERVICE_WORKER ####
@@ -79,6 +85,7 @@ Example: `-e FOLLOW_REDIRECTS='true'`
 Toggles ignoring of service worker for each request.
 
 Default: `false`
+
 Example: `-e ENABLE_SERVICE_WORKER='true'`
 
 #### PRERENDER_PORT ####
@@ -86,6 +93,7 @@ Example: `-e ENABLE_SERVICE_WORKER='true'`
 Port the Prerender Server should listen on.
 
 Default: `3000`
+
 Example: `-e PRERENDER_PORT='3123'`
 
 #### PLUGIN_SEND_PRERENDER_HEADER ####
@@ -93,6 +101,7 @@ Example: `-e PRERENDER_PORT='3123'`
 Enables plugin that appends `X-Prerender: 1` to request headers.
 
 Default: `true`
+
 Example: `-e PLUGIN_SEND_PRERENDER_HEADER='false'`
 
 #### PLUGIN_BLOCK_RESOURCES ####
@@ -100,6 +109,7 @@ Example: `-e PLUGIN_SEND_PRERENDER_HEADER='false'`
 Enables plugin that prevent resources from being loaded.
 
 Default: `false`
+
 Example: `-e PLUGIN_BLOCK_RESOURCES='true'`
 
 #### PLUGIN_REMOVE_SCRIPTS_TAGS ####
@@ -107,6 +117,7 @@ Example: `-e PLUGIN_BLOCK_RESOURCES='true'`
 Enables plugin that removes scripts from requested page.
 
 Default: `true`
+
 Example: `-e PLUGIN_REMOVE_SCRIPTS_TAGS='false'`
 
 #### PLUGIN_HTTP_HEADERS ####
