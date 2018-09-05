@@ -9,7 +9,7 @@ try {
     config = {};
 }
 
-const CHROME_LOCATION = process.env.CHROME_LOCATION || config.chromeLocation || '/usr/bin/chromium';
+const CHROME_LOCATION = process.env.CHROME_LOCATION || config.chromeLocation || '/usr/bin/chromium-browser';
 const LOG_REQUESTS = process.env.LOG_REQUESTS || config.logRequests || false;
 const PAGE_DONE_CHECK_INTERVAL = process.env.PAGE_DONE_CHECK_INTERVAL || config.pageDoneCheckInterval || 500;
 const PAGE_LOAD_TIMEOUT = process.env.PAGE_LOAD_TIMEOUT || config.pageLoadTimeout || 20000;
