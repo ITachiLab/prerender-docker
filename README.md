@@ -168,3 +168,11 @@ Enables plugin that will allow access to your Prerender server from authorized p
 Default: `false`
 
 Example: `-e PLUGIN_AUTH='mylogin,mypassword'`
+
+### Example usage with options and plugins ###
+
+```
+docker run -p 3000:3123 -e PLUGIN_BLACKLIST='example.com' -e PLUGIN_AUTH='mylogin,mypassword' -e PRERENDER_PORT='3123' prerender-docker
+```
+
+And it simply works as it should.

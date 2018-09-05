@@ -22,8 +22,8 @@ const PLUGIN_BLOCK_RESOURCES = process.env.PLUGIN_BLOCK_RESOURCES || (config.plu
 const PLUGIN_REMOVE_SCRIPT_TAGS = process.env.PLUGIN_REMOVE_SCRIPT_TAGS || (config.plugin && config.plugin.removeScriptsTags) || true;
 const PLUGIN_HTTP_HEADERS = process.env.PLUGIN_HTTP_HEADERS || (config.plugin && config.plugin.httpHeaders) || true;
 
-const PLUGIN_WHITELIST = process.env.ALLOWED_DOMAINS || (config.plugin && config.plugin.allowedDomains) || false;
-const PLUGIN_BLACKLIST = process.env.BLACKLISTED_DOMAINS || (config.plugin && config.plugin.blackListedDomains) || false;
+const PLUGIN_WHITELIST = process.env.PLUGIN_WHITELIST || (config.plugin && config.plugin.whitelist) || false;
+const PLUGIN_BLACKLIST = process.env.PLUGIN_BLACKLIST || (config.plugin && config.plugin.blackList) || false;
 
 const PLUGIN_AUTH = process.env.PLUGIN_AUTH || (config.plugin && config.plugin.auth) || false;
 
@@ -35,32 +35,32 @@ const server = prerender({
     waitAfterLastRequest: parseInt(WAIT_AFTER_LAST_REQUEST),
     followRedirects: JSON.parse(FOLLOW_REDIRECTS),
     enableServiceWorker: JSON.parse(ENABLE_SERVICE_WORKER),
-    port: praseInt(PRERENDER_PORT)
+    port: parseInt(PRERENDER_PORT)
 });
 
-if (PLUGIN_SEND_PRERENDER_HEADER) {
+if (PLUGIN_SEND_PRERENDER_HEADER && JSON.parse(PLUGIN_SEND_PRERENDER_HEADER)) {
     server.use(prerender.sendPrerenderHeader());
 }
 
-if (PLUGIN_BLOCK_RESOURCES) {
+if (PLUGIN_BLOCK_RESOURCES && JSON.parse(PLUGIN_BLOCK_RESOURCES)) {
     server.use(prerender.blockResources());
 }
 
-if (PLUGIN_REMOVE_SCRIPT_TAGS) {
+if (PLUGIN_REMOVE_SCRIPT_TAGS && JSON.parse(PLUGIN_REMOVE_SCRIPT_TAGS)) {
     server.use(prerender.removeScriptTags());
 }
 
-if (PLUGIN_HTTP_HEADERS) {
+if (PLUGIN_HTTP_HEADERS && JSON.parse(PLUGIN_HTTP_HEADERS)) {
     server.use(prerender.httpHeaders());
 }
 
 if (PLUGIN_WHITELIST) {
-    process.env.ALLOWED_DOMAINS = process.env.ALLOWED_DOMAINS || (config.plugin && config.plugin.allowedDomains.join(','));
+    process.env.ALLOWED_DOMAINS = process.env.PLUGIN_WHITELIST || (config.plugin && config.plugin.whiteList.join(','));
     server.use(prerender.whitelist());
 }
 
 if (PLUGIN_BLACKLIST) {
-    process.env.BLACKLISTED_DOMAINS = process.env.BLACKLISTED_DOMAINS || (config.plugin && config.plugins.blacklistedDomains.join(','));
+    process.env.BLACKLISTED_DOMAINS = process.env.PLUGIN_BLACKLIST || (config.plugin && config.plugins.blackList.join(','));
     server.use(prerender.blacklist());
 }
 
