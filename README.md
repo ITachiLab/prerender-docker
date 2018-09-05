@@ -142,6 +142,7 @@ Example: telling prerender to serve this page as a 302 redirect
 ```
 
 Default: `true`
+
 Example: `-e PLUGIN_HTTP_HEADERS='false'`
 
 #### PLUGIN_WHITELIST ####
@@ -149,6 +150,7 @@ Example: `-e PLUGIN_HTTP_HEADERS='false'`
 Enables plugin that will allow requests to a certain domain, use this plugin to cause a 404 for any other domains.
 
 Default: `false`
+
 Example: `-e PLUGIN_WHITELIST='foo.com,foobar.com,foofoo.net'`
 
 #### PLUGIN_BLACKLIST ####
@@ -156,6 +158,7 @@ Example: `-e PLUGIN_WHITELIST='foo.com,foobar.com,foofoo.net'`
 Enables plugin that will disallow requests to a certain domain, use this plugin to cause a 404 for the domains.
 
 Default: `false`
+
 Example: `-e PLUGIN_BLACKLIST='nastysite.com,wedontlikethisguy.net'`
 
 #### PLUGIN_AUTH ####
@@ -163,4 +166,5 @@ Example: `-e PLUGIN_BLACKLIST='nastysite.com,wedontlikethisguy.net'`
 Enables plugin that will allow access to your Prerender server from authorized parties. This is the simplest, basic HTTP authentication.
 
 Default: `false`
+
 Example: `-e PLUGIN_AUTH='mylogin,mypassword'`
