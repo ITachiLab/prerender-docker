@@ -112,13 +112,13 @@ Default: `false`
 
 Example: `-e PLUGIN_BLOCK_RESOURCES='true'`
 
-#### PLUGIN_REMOVE_SCRIPTS_TAGS ####
+#### PLUGIN_REMOVE_SCRIPT_TAGS ####
 
 Enables plugin that removes scripts from requested page.
 
 Default: `true`
 
-Example: `-e PLUGIN_REMOVE_SCRIPTS_TAGS='false'`
+Example: `-e PLUGIN_REMOVE_SCRIPT_TAGS='false'`
 
 #### PLUGIN_HTTP_HEADERS ####
 
@@ -130,13 +130,13 @@ Add these tags in the <head> of your page if you want to serve soft http headers
 
 Example: telling prerender to server this page as a 404
 
-```javascript
+```html
 <meta name="prerender-status-code" content="404">
 ```
 
 Example: telling prerender to serve this page as a 302 redirect
 
-```javascript
+```html
 <meta name="prerender-status-code" content="302">
 <meta name="prerender-header" content="Location: https://www.google.com">
 ```
@@ -169,10 +169,54 @@ Default: `false`
 
 Example: `-e PLUGIN_AUTH='mylogin,mypassword'`
 
-### Example usage with options and plugins ###
+#### Example usage with options and plugins ####
 
 ```
 docker run -p 3000:3123 -e PLUGIN_BLACKLIST='example.com' -e PLUGIN_AUTH='mylogin,mypassword' -e PRERENDER_PORT='3123' prerender-docker
 ```
 
 And it simply works as it should.
+
+### Configuration file ###
+
+In order to configure Prerender Server through a configuration file, it has to be placed in: `/var/prerender` container directory and named `config.js`. This kind of configuration is mainly used in Swarm mode, when one can define configuration that is copied to services thereafter.
+
+`config.js` has to be structured like NodeJS module file. Remember, that you are not required to define every option, the below configuration has them all, so you can see how to write your own.
+
+```javascript
+module.exports = {
+    chromeLocation: '/usr/local/bin/chromium',
+    logRequests: true,
+    pageDoneCheckInterval: 1500,
+    pageLoadTimeout: 10000,
+    waitAfterLastRequest: 3000,
+    followRedirects: true
+    prerenderPort: 3123,
+    
+    plugin: {
+        sendPrerenderHeader: false
+        blockResources: true,
+        removeScriptTags: false,
+        httpHeaders: false
+        whiteList: [
+            'foo.com',
+            'foobar.com',
+            'foofoo.net'
+        ],
+        blackList: [
+            'nastysite.com',
+            'wedontlikethisguy.net'
+        ],
+        auth: {
+            login: 'mylogin',
+            password: 'mypassword'
+        }
+    }
+};
+```
+
+If you really, really want to use the configuration file outside the Swarm mode, you can bind mount this file as well.
+
+```
+docker run -p 3000:3123 -v /path/to/config.js:/var/prerender/config.js prerender-docker
+```
