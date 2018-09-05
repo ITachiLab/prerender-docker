@@ -2,7 +2,7 @@
 
 This repository contains a Docker-ready project with Prerender.io server. It is created on official [Prerender.io server libraries](https://github.com/prerender/prerender) in version 5.4.4. It has been customized to work with Chromium in version 68 and everything runs on NodeJS 8.
 
-[![Docker Build Status](https://img.shields.io/docker/build/cykloheksan/prerender-docker.svg)](https://hub.docker.com/r/cykloheksan/prerender-docker/)
+[![Docker Build Status](https://img.shields.io/docker/build/cykloheksan/prerender-docker.svg)](https://hub.docker.com/r/cykloheksan/prerender-docker/) [![Docker Pulls](https://img.shields.io/docker/pulls/cykloheksan/prerender-docker.svg)](https://hub.docker.com/r/cykloheksan/prerender-docker/)
 
 ## Motive ##
 
@@ -10,20 +10,10 @@ I've created this project, because I couldn't find any working Docker image that
 
 ## How to use it ##
 
-This image can be built by yourself for now, but I have a plan to push it to official DockerHub repository. So until then, clone this repository and do the following:
-
-### Build ###
-
-```
-docker build -t prerender-docker .
-```
-
-### Run ###
-
 When the default configuration is sufficient for you, simply run the container.
 
 ```
-docker run -d -p 3000:3000 --name prerender-io prerender-docker
+docker run -d -p 3000:3000 --name prerender-io cykloheksan/prerender-docker:latest
 ```
 
 And that's it! Now your Prerender Server is spawned on port 3000.
