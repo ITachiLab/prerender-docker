@@ -2,7 +2,7 @@
 
 This repository contains a Docker-ready project with Prerender.io server. It is created on official [Prerender.io server libraries](https://github.com/prerender/prerender) in version 5.4.4. It has been customized to work with Chromium in version 68 and everything runs on NodeJS 8.
 
-![Docker Build Status](https://img.shields.io/docker/build/cykloheksan/prerender-docker.svg)
+[![Docker Build Status](https://img.shields.io/docker/build/cykloheksan/prerender-docker.svg)](https://hub.docker.com/r/cykloheksan/prerender-docker/)
 
 ## Motive ##
 
