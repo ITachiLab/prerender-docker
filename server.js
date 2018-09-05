@@ -15,7 +15,7 @@ const PAGE_LOAD_TIMEOUT = process.env.PAGE_LOAD_TIMEOUT || config.PAGE_LOAD_TIME
 const WAIT_AFTER_LAST_REQUEST = process.env.WAIT_AFTER_LAST_REQUEST || config.WAIT_AFTER_LAST_REQUEST || 500;
 const FOLLOW_REDIRECTS = process.env.FOLLOW_REDIRECTS || config.FOLLOW_REDIRECTS || false;
 const ENABLE_SERVICE_WORKER = process.env.ENABLE_SERVICE_WORKER || config.ENABLE_SERVICE_WORKER || false;
-const PORT = process.env.PRERENDER_PORT || config.PRERENDER_PORT || 3000;
+const PRERENDER_PORT = process.env.PRERENDER_PORT || config.PRERENDER_PORT || 3000;
 
 const PLUGIN_SEND_PRERENDER_HEADER = process.env.PLUGIN_SEND_PRERENDER_HEADER || (config.plugin && config.plugin.sendPrerenderHeader) || true;
 const PLUGIN_BLOCK_RESOURCES = process.env.PLUGIN_BLOCK_RESOURCES || (config.plugin && config.plugin.blockResources) || false;
@@ -25,15 +25,17 @@ const PLUGIN_HTTP_HEADERS = process.env.PLUGIN_HTTP_HEADERS || (config.plugin &&
 const PLUGIN_WHITELIST = process.env.ALLOWED_DOMAINS || (config.plugin && config.plugin.allowedDomains) || false;
 const PLUGIN_BLACKLIST = process.env.BLACKLISTED_DOMAINS || (config.plugin && config.plugin.blackListedDomains) || false;
 
+const PLUGIN_AUTH = process.env.PLUGIN_AUTH || (config.plugin && config.plugin.auth) || false;
+
 const server = prerender({
     chromeLocation: CHROME_LOCATION,
-    logRequests: LOG_REQUESTS,
-    pageDoneCheckInterval: PAGE_DONE_CHECK_INTERVAL,
-    pageLoadTimeout: PAGE_LOAD_TIMEOUT,
-    waitAfterLastRequest: WAIT_AFTER_LAST_REQUEST,
-    followRedirects: FOLLOW_REDIRECTS,
-    enableServiceWorker: ENABLE_SERVICE_WORKER,
-    port: PORT
+    logRequests: JSON.parse(LOG_REQUESTS),
+    pageDoneCheckInterval: parseInt(PAGE_DONE_CHECK_INTERVAL),
+    pageLoadTimeout: parseInt(PAGE_LOAD_TIMEOUT),
+    waitAfterLastRequest: parseInt(WAIT_AFTER_LAST_REQUEST),
+    followRedirects: JSON.parse(FOLLOW_REDIRECTS),
+    enableServiceWorker: JSON.parse(ENABLE_SERVICE_WORKER),
+    port: praseInt(PRERENDER_PORT)
 });
 
 if (PLUGIN_SEND_PRERENDER_HEADER) {
@@ -60,6 +62,21 @@ if (PLUGIN_WHITELIST) {
 if (PLUGIN_BLACKLIST) {
     process.env.BLACKLISTED_DOMAINS = process.env.BLACKLISTED_DOMAINS || (config.plugin && config.plugins.blacklistedDomains.join(','));
     server.use(prerender.blacklist());
+}
+
+if (PLUGIN_AUTH) {
+    let login, password;
+
+    if (process.env.PLUGIN_AUTH) {
+        [login, password] = process.env.PLUGIN_AUTH.split(',');
+    } else {
+        ({login, password} = config.plugin.auth);
+    }
+
+    process.env.BASIC_AUTH_USERNAME = login;
+    process.env.BASIC_AUTH_PASSWORD = password;
+
+    server.use(prerender.basicAuth());
 }
 
 server.start();
